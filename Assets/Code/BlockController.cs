@@ -10,14 +10,21 @@ public class BlockController : MonoBehaviour
     {
         if (isMoving) return;
 
+        // Cho PC (keyboard)
         if (Input.GetKeyDown(KeyCode.RightArrow))
-            StartCoroutine(Roll(Vector3.right));
+            Move(Vector3.right);
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            StartCoroutine(Roll(Vector3.left));
+            Move(Vector3.left);
         else if (Input.GetKeyDown(KeyCode.UpArrow))
-            StartCoroutine(Roll(Vector3.forward));
+            Move(Vector3.forward);
         else if (Input.GetKeyDown(KeyCode.DownArrow))
-            StartCoroutine(Roll(Vector3.back));
+            Move(Vector3.back);
+    }
+
+    public void Move(Vector3 dir)
+    {
+        if (!isMoving)
+            StartCoroutine(Roll(dir));
     }
 
     IEnumerator Roll(Vector3 direction)
@@ -36,14 +43,12 @@ public class BlockController : MonoBehaviour
             yield return null;
         }
 
-        // Fix rotation (làm tròn lại)
         transform.rotation = Quaternion.Euler(
             Mathf.Round(transform.rotation.eulerAngles.x / 90f) * 90f,
             Mathf.Round(transform.rotation.eulerAngles.y / 90f) * 90f,
             Mathf.Round(transform.rotation.eulerAngles.z / 90f) * 90f
         );
 
-        // Fix vị trí (làm tròn)
         transform.position = new Vector3(
             Mathf.Round(transform.position.x * 2) / 2f,
             Mathf.Round(transform.position.y * 2) / 2f,
@@ -57,8 +62,6 @@ public class BlockController : MonoBehaviour
     {
         Vector3 pos = transform.position;
         Vector3 down = Vector3.down;
-
-       
         return pos + (dir + down) * 0.5f;
     }
 }

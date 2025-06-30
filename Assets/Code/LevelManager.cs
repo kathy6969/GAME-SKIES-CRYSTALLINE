@@ -4,7 +4,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
 
-    public GameObject[] levelPrefabs;  // Danh sách prefab tất cả level
+    public GameObject[] levelPrefabs;  
     public int currentLevelIndex = 0;
 
     public GameObject currentLevel;
@@ -39,13 +39,12 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("🎉 Hết level rồi!");
-            // Tuỳ bạn: load lại level 0, show win screen, v.v.
+            Debug.Log("Hết level rồi!");
         }
     }
     void Start()
     {
-        Debug.Log("Khởi động game, tải level...");
+    
         LoadLevel(levelPrefabs[currentLevelIndex]);
     }
 }
